@@ -1,57 +1,151 @@
-// load .env data into process.env
-require("dotenv").config();
-
-// Web server config
-const PORT = process.env.PORT || 8080;
-const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
+const cookieSession = require("cookie-session");
+const bodyParser = require("body-parser");
+const bcrypt = require('bcryptjs');
+const {
+  getUserByEmail
+} = require('./helpers');
+
 const app = express();
-const morgan = require("morgan");
+const PORT = 3000;
 
-// PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
-
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
-app.use(morgan("dev"));
-
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  "/styles",
-  sassMiddleware({
-    source: __dirname + "/styles",
-    destination: __dirname + "/public/styles",
-    isSass: false, // false => scss, true => sass
-  })
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieSession({
+  name: 'PasswordKeepR',
+  keys: ['key']
+})
 );
 
-app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.use("/public", express.static("public"));
 
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
+//Gloabl Users data
+const users = {
+    "userRandomID": {
+      id: "userRandomID",
+      email: "d@d.com",
+      password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
+    },
+    "user2RandomID": {
+      id: "user2RandomID",
+      email: "a@a.com",
+      password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
+    }
+  };
 
-// Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
-// Note: mount other resources here, using the same pattern above
 
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
+// get routes
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get('/', (req, res) => {
+ res.render('index')
+});
+
+//REGISTRATION PAGE
+// app.get("/register", (req, res) => {
+//  res.render("register")
+// });
+
+app.get("/register", (req, res) => {
+
+    const templateVars = {
+      users: users[req.session.user_id] };
+
+    if (req.session.user_id) {
+      return res.redirect("user_page");
+    }
+
+    res.render("register", templateVars);
+
+  });
+
+  // POST code to register
+app.post("/register", (req, res) => {
+
+    const { email, password } = req.body;
+    const user = getUserByEmail(email, users);
+    const id = generateRandomString();
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    if (user) {
+        res.status(403);
+        res.send("An account with this email already exists");
+    } else if (!email || !password) {
+        res.status(403);
+        res.send("Either the email or password are empty");
+    } else {
+        users[id] = {"id":id, "email":email, "password": hashedPassword };
+
+        req.session.user_id = id;
+        res.redirect("/urls/");
+    }
+
+  });
+
+app.get("/user_page", (req, res) => {
+ res.render("user_page")
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+ console.log(`Example app listening on port ${PORT}`);
 });
+
+
+// // load .env data into process.env
+// require("dotenv").config();
+
+// // Web server config
+// const PORT = process.env.PORT || 8080;
+// const sassMiddleware = require("./lib/sass-middleware");
+// const express = require("express");
+// const app = express();
+// const morgan = require("morgan");
+
+// // PG database client/connection setup
+// const { Pool } = require("pg");
+// const dbParams = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
+
+// // Load the logger first so all (static) HTTP requests are logged to STDOUT
+// // 'dev' = Concise output colored by response status for development use.
+// //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
+// app.use(morgan("dev"));
+
+// app.set("view engine", "ejs");
+// app.use(express.urlencoded({ extended: true }));
+
+// app.use(
+//   "/styles",
+//   sassMiddleware({
+//     source: __dirname + "/styles",
+//     destination: __dirname + "/public/styles",
+//     isSass: false, // false => scss, true => sass
+//   })
+// );
+
+// app.use(express.static("public"));
+
+// // Separated Routes for each Resource
+// // Note: Feel free to replace the example routes below with your own
+// const usersRoutes = require("./routes/users");
+// const widgetsRoutes = require("./routes/widgets");
+
+// // Mount all resource routes
+// // Note: Feel free to replace the example routes below with your own
+// app.use("/api/users", usersRoutes(db));
+// app.use("/api/widgets", widgetsRoutes(db));
+// // Note: mount other resources here, using the same pattern above
+
+// // Home page
+// // Warning: avoid creating more routes in this file!
+// // Separate them into separate routes files (see above).
+
+// app.get("/", (req, res) => {
+//   res.render("index");
+// });
+
+// app.listen(PORT, () => {
+//   console.log(`Example app listening on port ${PORT}`);
+// });
+
+
