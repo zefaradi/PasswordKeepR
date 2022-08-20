@@ -2,9 +2,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const {
-  getUserByEmail
-} = require('./helpers');
+const { getUserByEmail } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -21,16 +19,16 @@ app.use("/styles", express.static("styles"));
 
 //Gloabl Users data
 const users = {
-    "userRandomID": {
-      id: "userRandomID",
-      email: "d@d.com",
-      password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
-    },
-    "user2RandomID": {
-      id: "user2RandomID",
-      email: "a@a.com",
-      password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
-    }
+    // "userRandomID": {
+    //   id: "userRandomID",
+    //   user_name: "Alice",
+    //   password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
+    // },
+    // "user2RandomID": {
+    //   id: "user2RandomID",
+    //   email: "a@a.com",
+    //   password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
+    // }
   };
 
 
@@ -62,9 +60,11 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
 
     const { email, password } = req.body;
-    const user = getUserByEmail(email, users);
-    const id = generateRandomString();
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = getUserByEmail(email);
+
+    console.log('line 65:', user);
+    // const id = generateRandomString();
+    // const hashedPassword = bcrypt.hashSync(password, 10);
 
     if (user) {
         res.status(403);
@@ -73,10 +73,25 @@ app.post("/register", (req, res) => {
         res.status(403);
         res.send("Either the email or password are empty");
     } else {
-        users[id] = {"id":id, "email":email, "password": hashedPassword };
 
-        req.session.user_id = id;
-        res.redirect("/urls/");
+        req.session.user_id = email;
+        console.log("line 92:", req.session.user_id)
+        res.redirect("/user_page/");
+
+      // INSERT STATEMENT INTO THE USERS TABLE
+        return pool
+          .query(`INSERT INTO users (email, password)
+                  VALUES ($1, $2) RETURNING*`, [`${user.email}`, `${user.password}`])
+          .then((result) => {
+            console.log(result);
+            return result.rows[0];
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+
+
+        // users[id] = {"id":id, "email":email, "password": hashedPassword };
     }
 
   });
