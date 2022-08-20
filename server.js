@@ -1,3 +1,11 @@
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'labber',
+  host: 'localhost',
+  database: 'midterm'
+});
+
 const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
@@ -17,20 +25,6 @@ app.use(cookieSession({
 app.set("view engine", "ejs");
 app.use("/public", express.static("public"));
 
-//Gloabl Users data
-const users = {
-    // "userRandomID": {
-    //   id: "userRandomID",
-    //   user_name: "Alice",
-    //   password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
-    // },
-    // "user2RandomID": {
-    //   id: "user2RandomID",
-    //   email: "a@a.com",
-    //   password: "$2a$10$UZxhRDJEJjqdoA86bB/hl.r0w0DiaoUxL08LFjm5h3UnkjeupsNUS"
-    // }
-  };
-
 
 // get routes
 
@@ -39,9 +33,6 @@ app.get('/', (req, res) => {
 });
 
 //REGISTRATION PAGE
-// app.get("/register", (req, res) => {
-//  res.render("register")
-// });
 
 app.get("/register", (req, res) => {
 
@@ -60,39 +51,44 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
 
     const { email, password } = req.body;
-    const user = getUserByEmail(email);
+    getUserByEmail(email)
+    .then((result) => {
+      // console.log("line 73 result:", result[0]);
 
-    console.log('line 65:', user);
-    // const id = generateRandomString();
-    // const hashedPassword = bcrypt.hashSync(password, 10);
+      const user = result[0];
 
-    if (user) {
+      if (user) {
         res.status(403);
         res.send("An account with this email already exists");
-    } else if (!email || !password) {
+      } else if (!email || !password) {
         res.status(403);
         res.send("Either the email or password are empty");
-    } else {
+      } else {
 
         req.session.user_id = email;
-        console.log("line 92:", req.session.user_id)
+        // console.log("line 92:", req.session.user_id)
         res.redirect("/user_page/");
 
       // INSERT STATEMENT INTO THE USERS TABLE
         return pool
           .query(`INSERT INTO users (email, password)
-                  VALUES ($1, $2) RETURNING*`, [`${user.email}`, `${user.password}`])
-          .then((result) => {
-            console.log(result);
-            return result.rows[0];
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-
-
-        // users[id] = {"id":id, "email":email, "password": hashedPassword };
+                  VALUES ($1, $2) RETURNING*`, [`${email}`, `${password}`])
+          // .then((result) => {
+          //   console.log(result);
+          //   // return result.rows[0];
+          // })
+          // .catch((error) => {
+          //   console.log(error.message);
+          // });
     }
+    })
+    .then((result) => {
+      // console.log(result[0]);
+      // return result.rows[0];
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
 
   });
 

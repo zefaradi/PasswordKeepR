@@ -8,12 +8,10 @@ const pool = new Pool({
 
 //Checks if an E-mail already exists in the user database
 const getUserByEmail  = (email) => {
-  console.log(email);
-
     return pool
     .query(`SELECT * FROM users WHERE email = $1`, [email])
     .then ((result) => {
-        console.log(result.rows[0])
+        // console.log("line 16:",result.rows[0])
         return result.rows;
     })
 
