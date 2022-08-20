@@ -27,5 +27,3 @@ const getUserByEmail  = (email) => {
 
   exports.getUserByEmail = getUserByEmail;
 
-  // const test = getUserByUser_name("Alice");
-
