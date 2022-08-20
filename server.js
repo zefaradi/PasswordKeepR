@@ -51,7 +51,7 @@ app.get("/login", (req, res) => {
     users: users[req.session.user_id] };
 
   if (req.session.user_id) {
-    res.redirect("/user_page");
+    res.redirect("/login");
   } else {
     res.render("/", templateVars);
   }
@@ -61,13 +61,13 @@ app.get("/login", (req, res) => {
 //POST code for login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  const user = getUserByEmail(email)
-  .the((result) => {
+  getUserByEmail(email)
+  .then((result) => {
     const user = result[0];
 
       if (!email || !password) {
         return res.status(403).send('Email or Password cannot be blank.');
-      } else if (user && password) {
+      } else if (user && password === user.password) {
         req.session.user_id = user.id;
         res.redirect("/user_page");
       } else if (!user) {
@@ -125,6 +125,8 @@ app.post("/register", (req, res) => {
         return pool
           .query(`INSERT INTO users (email, password)
                   VALUES ($1, $2) RETURNING*`, [`${email}`, `${password}`])
+            // .query(`INSERT INTO favourites (user_id, company_id)
+            // VALUES ($1, $2) RETURNING*`, [`${email}`, `${password}`])
           // .then((result) => {
           //   console.log(result);
           //   // return result.rows[0];
