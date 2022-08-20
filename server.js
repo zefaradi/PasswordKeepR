@@ -25,6 +25,8 @@ app.use(cookieSession({
 app.set("view engine", "ejs");
 app.use("/styles", express.static("styles"));
 
+//TO KEEP TRACK OF THE COOKIES
+const users = {};
 
 // get routes
 
@@ -35,6 +37,48 @@ app.get('/', (req, res) => {
 app.get('/create', (req, res) => {
   res.render('new_site')
  });
+
+ //----------------------------------------------------------------
+
+ //LOGIN PAGE
+app.get("/login", (req, res) => {
+  const templateVars = {
+    userID: req.session.user_id,
+    users: users[req.session.user_id] };
+
+  if (req.session.user_id) {
+    res.redirect("/user_page");
+  } else {
+    res.render("/", templateVars);
+  }
+
+});
+
+//POST code for login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  const user = getUserByEmail(email)
+  .the((result) => {
+    const user = result[0];
+
+      if (!email || !password) {
+        return res.status(403).send('Email or Password cannot be blank.');
+      } else if (user && password) {
+        req.session.user_id = user.id;
+        res.redirect("/user_page");
+      } else if (!user) {
+        res.status(403);
+        res.send("There is no account with this email.");
+      } else {
+        res.status(403);
+        res.send("Invalid login credentials.");
+    }
+
+  })
+
+});
+
+//-------------------------------------------------------------------
 
 //REGISTRATION PAGE
 
