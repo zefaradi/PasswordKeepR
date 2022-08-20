@@ -8,10 +8,12 @@ const pool = new Pool({
 
 //Checks if an E-mail already exists in the user database
 const getUserByEmail  = (email) => {
+  console.log(email);
+
     return pool
     .query(`SELECT * FROM users WHERE email = $1`, [email])
     .then ((result) => {
-        console.log(result.rows)
+        console.log(result.rows[0])
         return result.rows;
     })
 
@@ -25,6 +27,7 @@ const getUserByEmail  = (email) => {
     // return undefined;
   };
 
-  exports.getUserWithEmail = getUserWithEmail;
+  exports.getUserByEmail = getUserByEmail;
 
-  const test = getUserByEmail()
+  // const test = getUserByUser_name("Alice");
+
