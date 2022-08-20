@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
  res.render('index')
 });
 
+app.get('/login', (req, res) => {
+  res.render('login')
+ });
+
 app.get('/create', (req, res) => {
   res.render('new_site')
  });
@@ -115,7 +119,7 @@ app.post("/register", (req, res) => {
 
         req.session.user_id = email;
         // console.log("line 92:", req.session.user_id)
-        res.redirect("/user_page/");
+        res.redirect("/user_page");
 
       // INSERT STATEMENT INTO THE USERS TABLE
         return pool
