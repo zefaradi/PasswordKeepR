@@ -25,6 +25,6 @@ const getUserByEmail  = (email) => {
     // return undefined;
   };
 
-  exports.getUserWithEmail = getUserWithEmail;
+  exports.getUserByEmail = getUserByEmail;
 
   const test = getUserByEmail()
