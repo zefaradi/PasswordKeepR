@@ -13,3 +13,22 @@ h2 {
  .website {
   padding-left: 1rem;
  }
+
+ .nav-logout,  .nav-logout:hover,  .nav-logout:focus,  .nav-logout:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.add-website {
+margin-top: 5rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.add-btn {
+margin-top: 2rem;
+width: 200px;
+height: 50px;
+font-size: 24px;
+}

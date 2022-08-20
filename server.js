@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
  res.render('index')
 });
 
+app.get('/create', (req, res) => {
+  res.render('new_site')
+ });
+
 //REGISTRATION PAGE
 // app.get("/register", (req, res) => {
 //  res.render("register")
@@ -102,6 +106,12 @@ app.get("/user_page", (req, res) => {
 
 app.listen(PORT, () => {
  console.log(`Example app listening on port ${PORT}`);
+});
+
+// POST code to logout
+app.post("/logout", (req, res) => {
+  req.session = null; // delete cookie when logging out
+  res.redirect("/");
 });
 
 
