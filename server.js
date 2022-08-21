@@ -23,7 +23,8 @@ app.use(cookieSession({
 );
 
 app.set("view engine", "ejs");
-app.use("/styles", express.static("styles"));
+// app.use("/styles", express.static("styles"));
+app.use(express.static("public"));
 
 //TO KEEP TRACK OF THE COOKIES
 const users = {};
@@ -33,6 +34,10 @@ const users = {};
 app.get('/', (req, res) => {
  res.render('index')
 });
+
+app.get('/edit', (req, res) => {
+  res.render('edit_site')
+ });
 
 app.get('/login', (req, res) => {
   res.render('login')

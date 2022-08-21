@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,10 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- CSS STYLES ------------------------------------------------------------>
-    <link rel="stylesheet" href="/styles/new_site.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-
-
+    <link rel="stylesheet" href="../styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="../styles/user-page.css" type="text/css" />
 
     <title>PasswordKeepR</title>
   </head>
@@ -40,34 +36,28 @@
    </header>
 
   <body>
-    <h2>New Website</h2>
-    <form method="POST" action="/create">
-      <div class="register-form">
-       <div class="register-block">
-     <label>website</label>
-     <input type="website" class="form-control" name="website" placeholder="Enter website">
-     </div>
-     <ul class="category-list">
-      <button type="submit" class="btn btn-primary">Entertainment</button>
-      <button type="submit" class="btn btn-primary">Social</button>
-      <button type="submit" class="btn btn-primary">Work</button>
-      </ul>
-     <div class="user-info">
-      <div class="register-block">
+    <h2>Example Website</h2>
+    <div class="site-user-info">
+    <h3>username</h3>
+    <h3>password</h3>
+    </div>
+
+  <form method="POST" action="/edit">
+      <div class="edit-form">
+       <div class="edit-block">
      <label>Username</label>
-     <input type="username" class="form-control" name="username" placeholder="Enter username">
-      </div>
-      <div class="register-block">
+     <input type="username" class="form-control" name="email" placeholder="Enter new username">
+     </div>
+     <div class="edit-block">
      <label>Password</label>
-     <input type="password" class="form-control" name="password" placeholder="Enter password">
-      </div>
+     <input type="password" class="form-control" name="password" placeholder="Enter new password">
+     </div>
      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-      </div>
-  </div>
+
+
 
     <!-- Optional JavaScript -->
-    <script type="text/javascript" src="/scripts/app.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
