@@ -40,22 +40,12 @@
     <h2>Websites</h2>
   <div class="site-group">
     <div class="website">
-      <span>Website1</span>
+      <% for(let favourite of favourites) { %>
+      <span><%=favourite.name%></span>
       <form method="GET" action="/edit">
         <button type="submit" class="btn btn-primary">Edit/Delete</button>
-        </form>
-    </div>
-    <div class="website">
-      <span>Website2</span>
-      <form method="GET" action="/edit">
-        <button type="submit" class="btn btn-primary">Edit/Delete</button>
-        </form>
-      </div>
-    <div class="website">
-      <span>Website3</span>
-      <form method="GET" action="/edit">
-        <button type="submit" class="btn btn-primary">Edit/Delete</button>
-        </form>
+      </form>
+        <% } %>
       </div>
   </div>
   <div class="add-website">

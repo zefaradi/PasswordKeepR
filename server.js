@@ -111,7 +111,6 @@ app.post("/register", (req, res) => {
     getUserByEmail(email)
     .then((result) => {
       // console.log("line 73 result:", result[0]);
-
       const user = result[0];
 
       if (user) {
@@ -122,9 +121,9 @@ app.post("/register", (req, res) => {
         res.send("Either the email or password are empty");
       } else {
 
-        req.session.user_id = email;
+        // req.session.user_id = user.id;
         // console.log("line 92:", req.session.user_id)
-        res.redirect("/user_page");
+        // res.redirect("/user_page");
 
       // INSERT STATEMENT INTO THE USERS TABLE
         return pool
@@ -142,8 +141,15 @@ app.post("/register", (req, res) => {
     }
     })
     .then((result) => {
-      // console.log(result[0]);
-      // return result.rows[0];
+      // console.log(result);
+      return pool
+          .query(`INSERT INTO favourites (user_id, company_id)
+                  VALUES ($1, $2), ($1, $3), ($1, $4) RETURNING*`, [result.rows[0].id, 1, 2, 3 ] )
+                  .then((favourite) => {
+                    console.log(favourite)
+                  req.session.user_id = result.rows[0].id
+                  res.redirect("/user_page");
+                  })
     })
     .catch((error) => {
       console.log(error.message);
@@ -152,7 +158,25 @@ app.post("/register", (req, res) => {
   });
 
 app.get("/user_page", (req, res) => {
- res.render("user_page")
+  // check for a cookie
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
+    return pool
+    .query(`SELECT companies.name AS name FROM favourites
+            JOIN companies
+            ON companies.id = company_id
+            WHERE user_id = $1`, [req.session.user_id])
+    .then((result) => {
+      const templateVars = {
+        favourites: result.rows
+      }
+      console.log(templateVars);
+      res.render("user_page", templateVars)
+    })
+  }
+//  res.render("user_page")
 });
 
 app.listen(PORT, () => {
