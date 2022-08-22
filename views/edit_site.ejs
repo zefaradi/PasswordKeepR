@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,8 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- CSS STYLES ------------------------------------------------------------>
-    <link rel="stylesheet" href="../styles/header.css" type="text/css" />
-    <link rel="stylesheet" href="../styles/user-page.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/edit_site.css" type="text/css" />
 
     <title>PasswordKeepR</title>
   </head>
@@ -36,28 +38,35 @@
    </header>
 
   <body>
+    <!-- This needs to be replaced with the company from the db that the user clicks on -->
     <h2>Example Website</h2>
     <div class="site-user-info">
     <h3>username</h3>
     <h3>password</h3>
     </div>
+    <!-- ------------------------------------------------------------------------ -->
 
-  <form method="POST" action="/edit">
+
+<!-- This needs a form POST method and /edit action -->
+<!-- buttons currently have no function to them -->
       <div class="edit-form">
-       <div class="edit-block">
-     <label>Username</label>
-     <input type="username" class="form-control" name="email" placeholder="Enter new username">
+     <label>site email</label>
+     <input type="email" class="hide-form" name="email" placeholder="Enter new email">
+     <button type="submit" class="btn btn-primary show">Change</button>
      </div>
-     <div class="edit-block">
-     <label>Password</label>
-     <input type="password" class="form-control" name="password" placeholder="Enter new password">
+     <label>site Password</label>
+     <input type="password" class="hide-form" name="password" placeholder="Enter new password">
+     <button type="submit" class="btn btn-primary show">Change</button>
+     <button type="submit" class="btn btn-primary">Genereate Random</button>
      </div>
+     <div class="edit-submit">
      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+     </div>
 
 
 
     <!-- Optional JavaScript -->
+    <script type="text/javascript" src="/scripts/app.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

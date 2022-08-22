@@ -5,3 +5,5 @@ CREATE TABLE favourites (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE
 );
+
+

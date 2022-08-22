@@ -43,7 +43,10 @@
       <% for(let favourite of favourites) { %>
       <span><%=favourite.name%></span>
       <form method="GET" action="/edit">
-        <button type="submit" class="btn btn-primary">Edit/Delete</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
+      <form method="POST" action="/delete"> <!-- route needs to be made to delete company from users table  -->
+        <button type="submit" class="btn btn-primary">Delete</button>
       </form>
         <% } %>
       </div>
