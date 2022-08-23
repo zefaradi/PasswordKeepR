@@ -168,7 +168,7 @@ app.get("/user_page", (req, res) => {
 });
 
   //-------------------------------------------------
-  // CREATE A NEW PAGE
+  // ADD A NEW WEBSITE
 
   app.post("/create", (req, res) => {
     // check for a cookie
