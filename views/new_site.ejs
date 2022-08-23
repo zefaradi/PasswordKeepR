@@ -40,7 +40,7 @@
    </header>
 
   <body>
-    <h2>New Website</h2>
+    <h2>New website</h2>
     <form method="POST" action="/create">
       <div class="register-form">
        <div class="register-block">
@@ -48,9 +48,11 @@
      <input type="website" class="form-control" name="website" placeholder="Enter website">
      </div>
      <ul class="category-list">
-      <button type="submit" class="btn btn-primary">Entertainment</button>
-      <button type="submit" class="btn btn-primary">Social</button>
-      <button type="submit" class="btn btn-primary">Work</button>
+      <select name="categoryList">
+        <option value="1">Entertainment</option>
+        <option value="2">Work</option>
+        <option value="3">Social</option>
+      </select>
       </ul>
      <div class="user-info">
       <div class="register-block">
@@ -60,6 +62,7 @@
       <div class="register-block">
      <label>Password</label>
      <input type="password" class="form-control" name="password" placeholder="Enter password">
+
       </div>
      <button type="submit" class="btn btn-primary">Submit</button>
     </form>

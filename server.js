@@ -110,7 +110,6 @@ app.post("/register", (req, res) => {
     const { email, password } = req.body;
     getUserByEmail(email)
     .then((result) => {
-      // console.log("line 73 result:", result[0]);
       const user = result[0];
 
       if (user) {
@@ -120,24 +119,10 @@ app.post("/register", (req, res) => {
         res.status(403);
         res.send("Either the email or password are empty");
       } else {
-
-        // req.session.user_id = user.id;
-        // console.log("line 92:", req.session.user_id)
-        // res.redirect("/user_page");
-
       // INSERT STATEMENT INTO THE USERS TABLE
         return pool
           .query(`INSERT INTO users (email, password)
                   VALUES ($1, $2) RETURNING*`, [`${email}`, `${password}`])
-            // .query(`INSERT INTO favourites (user_id, company_id)
-            // VALUES ($1, $2) RETURNING*`, [`${email}`, `${password}`])
-          // .then((result) => {
-          //   console.log(result);
-          //   // return result.rows[0];
-          // })
-          // .catch((error) => {
-          //   console.log(error.message);
-          // });
     }
     })
     .then((result) => {
@@ -146,7 +131,7 @@ app.post("/register", (req, res) => {
           .query(`INSERT INTO favourites (user_id, company_id)
                   VALUES ($1, $2), ($1, $3), ($1, $4) RETURNING*`, [result.rows[0].id, 1, 2, 3 ] )
                   .then((favourite) => {
-                    console.log(favourite)
+                    // console.log("line 134:",favourite)
                   req.session.user_id = result.rows[0].id
                   res.redirect("/user_page");
                   })
@@ -156,6 +141,9 @@ app.post("/register", (req, res) => {
     });
 
   });
+
+  //-------------------------------------------------
+  // USER PAGE
 
 app.get("/user_page", (req, res) => {
   // check for a cookie
@@ -172,12 +160,76 @@ app.get("/user_page", (req, res) => {
       const templateVars = {
         favourites: result.rows
       }
-      console.log(templateVars);
+      // console.log(templateVars);
       res.render("user_page", templateVars)
     })
   }
 //  res.render("user_page")
 });
+
+  //-------------------------------------------------
+  // CREATE A NEW PAGE
+
+  app.post("/create", (req, res) => {
+    // check for a cookie
+    if (!req.session.user_id) {
+      res.status(404);
+      res.send("Please login to access the URLs");
+    } else {
+      // console.log("line 179:", req.session.user_id);
+      const user_id = req.session.user_id;
+      pool.
+      query(`SELECT * FROM companies where companies.name = $1`, [req.body.website])
+      .then((result) => {
+        if (!result.rows.length) {
+          pool
+          .query(`INSERT INTO companies (name, category_id)
+          VALUES ($1, $2) RETURNING*`, [req.body.website, req.body.categoryList])
+          .then((result) => {
+            // console.log(result.rows);
+            const company_id = result.rows[0].id;
+            pool
+            .query(`SELECT * FROM company_passwords WHERE company_passwords.user_id = $1 AND company_passwords.company_id = $2`,[user_id, company_id])
+            .then((result) => {
+              // console.log("line 192:", result.rows);
+              if(!result.rows.length) {
+                pool
+                .query(`INSERT INTO company_passwords (user_id, company_username, company_id, company_password)
+                VALUES ($1, $2, $3, $4) RETURNING*`, [user_id, req.body.username, company_id, req.body.password])
+                .then((result) => {
+                  // console.log("line 199:",result.rows);
+                  pool
+                  .query(`SELECT * FROM favourites WHERE user_id = $1 AND company_id = $2`, [user_id, company_id])
+                  .then((result) => {
+                    if(!result.rows.length) {
+                      pool
+                      .query(`INSERT INTO favourites (user_id, company_id)
+                      VALUES ($1, $2)`, [user_id, company_id])
+                    }
+                  })
+                })
+              }
+            })
+          })
+        }
+        // console.log(result.rows);
+      })
+      // return pool
+      // .query(`INSERT INTO companies (name, category_id)
+      // VALUES ($1, $2) RETURNING*`, [req.body.website, req.body.categoryList])
+      // .then((result) => {
+      //   // const templateVars = {
+      //   //   favourites: result.rows
+      //   // }
+      //   // console.log(templateVars);
+      //   console.log("line 187:", req.body);
+      //   res.render("new_site");
+      // })
+    }
+   res.render("new_site");
+  });
+
+  //-----------------------------------------
 
 app.listen(PORT, () => {
  console.log(`Example app listening on port ${PORT}`);
