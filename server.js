@@ -35,9 +35,30 @@ app.get('/', (req, res) => {
  res.render('index')
 });
 
-app.get('/edit', (req, res) => {
-  res.render('edit_site')
+app.get('/edit/:id', (req, res) => {
+  pool
+  .query(`SELECT companies.id AS company_id, companies.name, company_passwords.company_username AS user_name, company_passwords.company_password AS user_password
+  FROM companies
+  JOIN company_passwords ON company_id = companies.id
+  WHERE companies.id = $1`, [req.params.id])
+  .then((result) => {
+    const templateVars = result.rows[0];
+    console.log(templateVars);
+    res.render('edit_site', templateVars);
+  })
  });
+
+ app.post('/edit/:id/username', (req, res) => {
+  console.log(req.body);
+  pool
+  .query(`UPDATE company_passwords SET company_username = $1
+  WHERE company_id = $2 RETURNING*`, [req.body.email, req.params.id])
+  .then((result) => {
+      console.log(result.rows);
+      res.redirect(`/edit/${req.params.id}`);
+  })
+
+  })
 
 app.get('/login', (req, res) => {
   res.render('login')
@@ -152,7 +173,7 @@ app.get("/user_page", (req, res) => {
     res.send("Please login to access the URLs");
   } else {
     return pool
-    .query(`SELECT companies.name AS name FROM favourites
+    .query(`SELECT companies.id, companies.name AS name FROM favourites
             JOIN companies
             ON companies.id = company_id
             WHERE user_id = $1`, [req.session.user_id])
@@ -181,7 +202,10 @@ app.get("/user_page", (req, res) => {
       pool.
       query(`SELECT * FROM companies where companies.name = $1`, [req.body.website])
       .then((result) => {
-        if (!result.rows.length) {
+        if(result.rows.length > 0) {
+          res.send("This website is already added to your favourited page. Please click <a href = 'http://localhost:3000/user_page'> here.</a>");
+        }
+        else if (!result.rows.length) {
           pool
           .query(`INSERT INTO companies (name, category_id)
           VALUES ($1, $2) RETURNING*`, [req.body.website, req.body.categoryList])
@@ -205,6 +229,9 @@ app.get("/user_page", (req, res) => {
                       pool
                       .query(`INSERT INTO favourites (user_id, company_id)
                       VALUES ($1, $2)`, [user_id, company_id])
+                      .then(() => {
+                        res.redirect("/user_page");
+                      })
                     }
                   })
                 })
@@ -226,7 +253,7 @@ app.get("/user_page", (req, res) => {
       //   res.render("new_site");
       // })
     }
-   res.render("new_site");
+  //  res.render("new_site");
   });
 
   //-----------------------------------------

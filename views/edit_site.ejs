@@ -19,7 +19,8 @@
   <nav>
     <ul class="main-nav">
     <li class="nav-list"><a href="/" class="nav-home">PasswordKeepR</a></li>
-        <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Catagories
+    <li class="nav-list"><a href="/user_page" class="nav-home">User Page</a></li>
+        <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Categories
          <span class="caret"></span></a>
          <ul class="dropdown-menu">
            <li><a href="#">Favourites</a></li>
@@ -39,10 +40,10 @@
 
   <body>
     <!-- This needs to be replaced with the company from the db that the user clicks on -->
-    <h2>Example Website</h2>
+    <h2><%=name%></h2>
     <div class="site-user-info">
-    <h3>username</h3>
-    <h3>password</h3>
+    <h3><%=user_name%></h3>
+    <h3><%=user_password%></h3>
     </div>
     <!-- ------------------------------------------------------------------------ -->
 
@@ -50,14 +51,17 @@
 <!-- This needs a form POST method and /edit action -->
 <!-- buttons currently have no function to them -->
       <div class="edit-form">
-     <label>site email</label>
-     <input type="email" class="hide-form" name="email" placeholder="Enter new email">
-     <button type="submit" class="btn btn-primary show">Change</button>
+     <form action="/edit/<%=company_id%>/username" method="post">
+
+     <input type="email" name="email"
+     value=<%=user_name%>>
+     <button type="submit" class="btn btn-primary show">Edit</button>
+    </form>
      </div>
-     <label>site Password</label>
-     <input type="password" class="hide-form" name="password" placeholder="Enter new password">
-     <button type="submit" class="btn btn-primary show">Change</button>
-     <button type="submit" class="btn btn-primary">Genereate Random</button>
+     <label></label>
+     <input type="text" name="password" value=<%=user_password%>>
+     <button type="submit" class="btn btn-primary show">Edit</button>
+     <button type="submit" class="btn btn-primary">Generate Random</button>
      </div>
      <div class="edit-submit">
      <button type="submit" class="btn btn-primary">Submit</button>
