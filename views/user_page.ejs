@@ -45,7 +45,7 @@
       <form method="GET" action="/edit/<%=favourite.id%>">
         <button type="submit" class="btn btn-primary">Edit</button>
       </form>
-      <form method="POST" action="/delete"> <!-- route needs to be made to delete company from users table  -->
+      <form method="POST" action="/edit/<%=favourite.id%>/delete">
         <button type="submit" class="btn btn-primary">Delete</button>
       </form>
         <% } %>

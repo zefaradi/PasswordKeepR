@@ -35,6 +35,9 @@ app.get('/', (req, res) => {
  res.render('index')
 });
 
+//--------------------------------------------------------------------------------
+// code to edit favourited company from the user page
+
 app.get('/edit/:id', (req, res) => {
   pool
   .query(`SELECT companies.id AS company_id, companies.name, company_passwords.company_username AS user_name, company_passwords.company_password AS user_password
@@ -43,22 +46,44 @@ app.get('/edit/:id', (req, res) => {
   WHERE companies.id = $1`, [req.params.id])
   .then((result) => {
     const templateVars = result.rows[0];
-    console.log(templateVars);
+    console.log("line 49:", templateVars);
+    console.log("line 50:", req.params.id);
     res.render('edit_site', templateVars);
   })
  });
 
+ //-------------------------------------------------------------------------------
+// code to delete the favourited company from the user page
+
+app.post('/edit/:id/delete', (req, res) => {
+  pool
+  .query(`DELETE FROM company_passwords
+          WHERE company_id = $1`, [req.params.id])
+  .then((result) => {
+    // const templateVars = {
+    //   favourites: result.rows
+    // }
+    // console.log("line 66:", templateVars);
+    res.redirect('/user_page');
+  })
+ });
+
+//--------------------------------------------------------------------------------
+// code to edit the user name for a favourited company
+
  app.post('/edit/:id/username', (req, res) => {
-  console.log(req.body);
+  console.log("line 58:", req.body);
   pool
   .query(`UPDATE company_passwords SET company_username = $1
   WHERE company_id = $2 RETURNING*`, [req.body.email, req.params.id])
   .then((result) => {
-      console.log(result.rows);
+      console.log("line 63:", result.rows);
       res.redirect(`/edit/${req.params.id}`);
-  })
+    })
 
   })
+
+//-------------------------------------------------------------------------------
 
 app.get('/login', (req, res) => {
   res.render('login')
@@ -148,12 +173,17 @@ app.post("/register", (req, res) => {
     })
     .then((result) => {
       // console.log(result);
+      req.session.user_id = result.rows[0].id
       return pool
-          .query(`INSERT INTO favourites (user_id, company_id)
-                  VALUES ($1, $2), ($1, $3), ($1, $4) RETURNING*`, [result.rows[0].id, 1, 2, 3 ] )
+          .query(`INSERT INTO company_passwords (user_id, company_username, company_id, company_password)
+                  VALUES ($1, "example@example.com", $2, "Password"),  ($1, "example@example.com", $3, "Password"),
+                  ($1, "example@example.com", $4, "Password"),
+                  RETURNING*`, [result.rows[0].id, 1, 2, 3 ] )
                   .then((favourite) => {
-                    // console.log("line 134:",favourite)
-                  req.session.user_id = result.rows[0].id
+                    console.log("line 182:",favourite)
+                  // req.session.user_id = result.rows[0].id
+                  // pool.
+                  // query(`INSERT INTO favourites `)
                   res.redirect("/user_page");
                   })
     })
@@ -173,7 +203,7 @@ app.get("/user_page", (req, res) => {
     res.send("Please login to access the URLs");
   } else {
     return pool
-    .query(`SELECT companies.id, companies.name AS name FROM favourites
+    .query(`SELECT companies.id, companies.name AS name FROM company_passwords
             JOIN companies
             ON companies.id = company_id
             WHERE user_id = $1`, [req.session.user_id])
@@ -181,7 +211,7 @@ app.get("/user_page", (req, res) => {
       const templateVars = {
         favourites: result.rows
       }
-      // console.log(templateVars);
+      console.log("line 209:", templateVars);
       res.render("user_page", templateVars)
     })
   }
