@@ -60,6 +60,22 @@ app.get('/edit/:id', (req, res) => {
 
   })
 
+// GET ROUTES FOR CATEGORIES---------- //
+
+app.get('/work', (req, res) => {
+  res.render('work_sites')
+})
+
+app.get('/entertainment', (req, res) => {
+  res.render('entertainment_sites')
+})
+
+app.get('/social', (req, res) => {
+  res.render('social_sites')
+})
+
+// ---------------------------------------------
+
 app.get('/login', (req, res) => {
   res.render('login')
  });
@@ -199,8 +215,8 @@ app.get("/user_page", (req, res) => {
     } else {
       // console.log("line 179:", req.session.user_id);
       const user_id = req.session.user_id;
-      pool.
-      query(`SELECT * FROM companies where companies.name = $1`, [req.body.website])
+      pool
+      .query(`SELECT * FROM companies where companies.name = $1`, [req.body.website])
       .then((result) => {
         if(result.rows.length > 0) {
           res.send("This website is already added to your favourited page. Please click <a href = 'http://localhost:3000/user_page'> here.</a>");

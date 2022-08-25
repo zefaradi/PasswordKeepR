@@ -3,13 +3,23 @@
 $(document).ready(function() {
 
 //---------------- HIDE USERNAME AND PASSWORD ON EDIT PAGE -----------------------------
-  $('.hide-form').hide();
-  $('.edit-submit').hide();
+$('.hide-user').hide();
+$('.hide-password').hide();
+$('.hide-form').hide();
+$('.edit-submit').hide();
 })
 
 // SHOW USER NAME AND PASSWORD ON EDIT PAGE ---------------------------------------------
- $(".show").on("click", function(event){
+ $(".show-user").on("click", function(event){
+  $('.hide-user').show();
   $(".hide-form").show();
-  $(".show").hide();
+  $(".show-user").hide();
+  $('.edit-submit').show();
+});
+
+$(".show-password").on("click", function(event){
+  $('.hide-password').show();
+  $(".hide-form").show();
+  $(".show-password").hide();
   $('.edit-submit').show();
 });

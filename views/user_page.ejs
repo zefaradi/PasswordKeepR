@@ -16,15 +16,15 @@
   </head>
   <nav>
     <ul class="main-nav">
-    <li class="nav-list"><a href="/" class="nav-home">PasswordKeepR</a></li>
+    <li class="nav-list"><a href="/user_page" class="nav-home">PasswordKeepR</a></li>
         <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Catagories
          <span class="caret"></span></a>
          <ul class="dropdown-menu">
-           <li><a href="#">Favourites</a></li>
+           <li><a href="/user_page">Favourites</a></li>
            <li class="divider"></li>
-           <li><a href="#">Entertainment</a></li>
-           <li><a href="#">Social</a></li>
-           <li><a href="#">Work</a></li>
+           <li><a href="/entertainment">Entertainment</a></li>
+           <li><a href="social">Social</a></li>
+           <li><a href="/work">Work</a></li>
          </ul>
          </li>
       <form method="POST" action="/logout" class="push">
@@ -37,20 +37,25 @@
 
   <body>
     <!-- these are place holders and need to be replaced with the actual sites from the db -->
-    <h2>Websites</h2>
-  <div class="site-group">
-    <div class="website">
+    <h2>Favourites</h2>
+    <div class="website-container">
       <% for(let favourite of favourites) { %>
-      <span><%=favourite.name%></span>
+        <div class="website-content">
+      <span class="website-name"><%=favourite.name%></span>
+      <div class="site-group">
       <form method="GET" action="/edit/<%=favourite.id%>">
         <button type="submit" class="btn btn-primary">Edit</button>
       </form>
       <form method="POST" action="/delete"> <!-- route needs to be made to delete company from users table  -->
+        <div class="website-btn">
         <button type="submit" class="btn btn-primary">Delete</button>
+      </div>
       </form>
+    </div>
+    </div>
         <% } %>
       </div>
-  </div>
+
   <div class="add-website">
     <h2>Add New Website</h2>
     <form method="GET" action="/create">
