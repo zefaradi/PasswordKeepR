@@ -81,12 +81,33 @@ app.post('/edit/:id/username', (req, res) => {
   pool
     .query(`UPDATE company_passwords SET company_username = $1
   WHERE company_id = $2 RETURNING*`, [req.body.email, req.params.id])
-    .then((result) => {
+  .then((result) => {
+    if (!req.body.email) {
+      return res.status(403).send('username cannot be blank.');
+    } else {
       console.log("line 63:", result.rows);
       res.redirect(`/edit/${req.params.id}`);
+    }
     })
 
 })
+
+  // code to edit the password for a favourited company
+
+  app.post('/edit/:id/password', (req, res) => {
+    console.log("line 58:", req.body);
+    pool
+    .query(`UPDATE company_passwords SET company_password = $1
+    WHERE company_id = $2 RETURNING*`, [req.body.password, req.params.id])
+    .then((result) => {
+      if (!req.body.password) {
+        return res.status(403).send("Password cannot be blank.");
+      } else {
+        console.log("line 63:", result.rows);
+        res.redirect(`/edit/${req.params.id}`);
+      }
+      })
+    })
 
 // GET ROUTES FOR CATEGORIES---------- //
 
