@@ -29,7 +29,7 @@ app.use(express.static("public"));
 //TO KEEP TRACK OF THE COOKIES
 const users = {};
 
-// get routes
+// HOME PAGE
 
 app.get('/', (req, res) => {
   res.render('index')
@@ -102,10 +102,6 @@ app.get('/social', (req, res) => {
   res.render('social_sites')
 })
 
-app.get('/login', (req, res) => {
-  res.render('login')
- });
-
 // ---------------------------------------------
 
 app.get('/create', (req, res) => {
@@ -120,19 +116,20 @@ app.get('/create', (req, res) => {
 //----------------------------------------------------------------
 
 //LOGIN PAGE
-// app.get("/login", (req, res) => {
-//   const templateVars = {
-//     userID: req.session.user_id,
-//     users: users[req.session.user_id]
-//   };
+app.get("/login", (req, res) => {
+  const templateVars = {
+    userID: req.session.user_id,
+    users: users[req.session.user_id]
+  };
 
-//   if (req.session.user_id) {
-//     res.redirect("/login");
-//   } else {
-//     res.render("/", templateVars);
-//   }
+  if (req.session.user_id) {
+    res.redirect("/user_page");
+  } else {
+    // res.send("Please log in with valid credentials");
+    res.render('login', templateVars);
+  }
 
-// });
+});
 
 //POST code for login
 app.post("/login", (req, res) => {
