@@ -47,6 +47,23 @@ const hidePassword = (password) => {
    return hidden.join('');
 }
 
-module.exports = { getUserByEmail, checkForCompany, hidePassword };
+// Random password on edit page
+function randPassword(letters, numbers, special) {
+  var chars = [
+   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", // letters
+   "0123456789", // numbers
+   "~!@-#$" // either
+  ];
+
+  return [letters, numbers, special].map(function(len, i) {
+    return Array(len).fill(chars[i]).map(function(x) {
+      return x[Math.floor(Math.random() * x.length)];
+    }).join('');
+  }).concat().join('').split('').sort(function(){
+    return 0.5-Math.random();
+  }).join('')
+}
+
+module.exports = { getUserByEmail, checkForCompany, hidePassword, randPassword };
 
 

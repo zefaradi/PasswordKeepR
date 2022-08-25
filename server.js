@@ -10,7 +10,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const { getUserByEmail, checkForCompany, hidePassword } = require('./helpers');
+const { getUserByEmail, checkForCompany, hidePassword, randPassword } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -122,17 +122,6 @@ app.get('/entertainment', (req, res) => {
 app.get('/social', (req, res) => {
   res.render('social_sites')
 })
-
-// ---------------------------------------------
-
-app.get('/create', (req, res) => {
-  if (!req.session.user_id) {
-    res.status(404);
-    res.send("Please login to access the URLs");
-  } else {
-  res.render('new_site')
-  }
-});
 
 //----------------------------------------------------------------
 
@@ -264,6 +253,18 @@ app.get("/user_page", (req, res) => {
 });
 //-------------------------------------------------
 // ADD A NEW WEBSITE
+
+// code to take you the create a new website on the user page
+app.get('/create', (req, res) => {
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
+  res.render('new_site')
+  }
+});
+
+// code to add a new website to the user page
 
 app.post("/create", (req, res) => {
   // check for a cookie
