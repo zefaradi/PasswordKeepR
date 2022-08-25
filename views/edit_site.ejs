@@ -42,7 +42,7 @@
     <h2><%=name%></h2>
     <div class="site-user-info">
     <h3><%=user_name%></h3>
-    <h3><%=user_password%></h3>
+    <h3><%=hash_password%></h3>
     </div>
 
 <!-- This needs a form POST method and /edit action -->
@@ -65,6 +65,7 @@
      <label></label>
      <span>password</span>
      <div class="hide-password">
+      <!-- use type password if we want password to still be hidden -->
      <input type="text" name="password" value=<%=user_password%>>
     </div>
     <div class="password-btns">

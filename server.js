@@ -10,7 +10,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const { getUserByEmail } = require('./helpers');
+const { getUserByEmail, hidePassword } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -39,17 +39,24 @@ app.get('/', (req, res) => {
 // code to edit favourited company from the user page
 
 app.get('/edit/:id', (req, res) => {
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
   pool
   .query(`SELECT companies.id AS company_id, companies.name, company_passwords.company_username AS user_name, company_passwords.company_password AS user_password
   FROM companies
   JOIN company_passwords ON company_id = companies.id
   WHERE companies.id = $1`, [req.params.id])
   .then((result) => {
-    const templateVars = result.rows[0];
+    const templateVars = {...result.rows[0]};
+    console.log('templateVars', templateVars)
+    templateVars.hash_password = hidePassword(result.rows[0].user_password)
     console.log("line 49:", templateVars);
     console.log("line 50:", req.params.id);
     res.render('edit_site', templateVars);
   })
+}
  });
 
  //-------------------------------------------------------------------------------
@@ -104,7 +111,12 @@ app.get('/login', (req, res) => {
  });
 
 app.get('/create', (req, res) => {
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
   res.render('new_site')
+  }
  });
 
  //----------------------------------------------------------------

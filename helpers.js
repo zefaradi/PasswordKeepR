@@ -25,5 +25,15 @@ const getUserByEmail  = (email) => {
     // return undefined;
   };
 
+// Hide password on edit page
+const hidePassword = (password) => {
+  const hidden = [];
+  for (const letter of password) {
+    hidden.push('*')
+  }
+   return hidden.join('');
+}
+
+  exports.hidePassword = hidePassword;
   exports.getUserByEmail = getUserByEmail;
 

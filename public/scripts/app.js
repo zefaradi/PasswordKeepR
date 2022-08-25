@@ -3,7 +3,7 @@
 $(document).ready(function() {
 
 //---------------- HIDE USERNAME AND PASSWORD ON EDIT PAGE -----------------------------
-$('.hide-user').hide();
+// $('.hide-user').hide();
 $('.hide-password').hide();
 $('.hide-form').hide();
 $('.edit-submit').hide();
@@ -23,3 +23,4 @@ $(".show-password").on("click", function(event){
   $(".show-password").hide();
   $('.edit-submit').show();
 });
+// ----------------------------------------------------------------------------------------
