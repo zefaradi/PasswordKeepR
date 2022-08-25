@@ -10,7 +10,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const { getUserByEmail, checkForCompany } = require('./helpers');
+const { getUserByEmail, checkForCompany, hidePassword } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -39,20 +39,25 @@ app.get('/', (req, res) => {
 // code to edit favourited company from the user page
 
 app.get('/edit/:id', (req, res) => {
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
   pool
     .query(`SELECT companies.id AS company_id, companies.name, company_passwords.company_username AS user_name, company_passwords.company_password AS user_password
   FROM companies
   JOIN company_passwords ON company_id = companies.id
   WHERE companies.id = $1`, [req.params.id])
-    .then((result) => {
-      const templateVars = result.rows[0];
-      // console.log("line 49:", templateVars);
-      // console.log("line 50:", req.params.id);
-      res.render('edit_site', templateVars);
-    })
-});
-
-//-------------------------------------------------------------------------------
+  .then((result) => {
+    const templateVars = {...result.rows[0]};
+    console.log('templateVars', templateVars)
+    templateVars.hash_password = hidePassword(result.rows[0].user_password)
+    console.log("line 49:", templateVars);
+    console.log("line 50:", req.params.id);
+    res.render('edit_site', templateVars);
+  })
+}
+ });
 // code to delete the favourited company from the user page
 
 app.post('/edit/:id/delete', (req, res) => {
@@ -83,32 +88,51 @@ app.post('/edit/:id/username', (req, res) => {
 
 })
 
-//-------------------------------------------------------------------------------
+// GET ROUTES FOR CATEGORIES---------- //
+
+app.get('/work', (req, res) => {
+  res.render('work_sites')
+})
+
+app.get('/entertainment', (req, res) => {
+  res.render('entertainment_sites')
+})
+
+app.get('/social', (req, res) => {
+  res.render('social_sites')
+})
 
 app.get('/login', (req, res) => {
   res.render('login')
-});
+ });
+
+// ---------------------------------------------
 
 app.get('/create', (req, res) => {
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access the URLs");
+  } else {
   res.render('new_site')
+  }
 });
 
 //----------------------------------------------------------------
 
 //LOGIN PAGE
-app.get("/login", (req, res) => {
-  const templateVars = {
-    userID: req.session.user_id,
-    users: users[req.session.user_id]
-  };
+// app.get("/login", (req, res) => {
+//   const templateVars = {
+//     userID: req.session.user_id,
+//     users: users[req.session.user_id]
+//   };
 
-  if (req.session.user_id) {
-    res.redirect("/login");
-  } else {
-    res.render("/", templateVars);
-  }
+//   if (req.session.user_id) {
+//     res.redirect("/login");
+//   } else {
+//     res.render("/", templateVars);
+//   }
 
-});
+// });
 
 //POST code for login
 app.post("/login", (req, res) => {
@@ -220,7 +244,6 @@ app.get("/user_page", (req, res) => {
   }
   //  res.render("user_page")
 });
-
 //-------------------------------------------------
 // ADD A NEW WEBSITE
 

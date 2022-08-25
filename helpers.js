@@ -38,6 +38,15 @@ const checkForCompany = async (companyName, categoryList) => {
   }
 }
 
+// Hide password on edit page
+const hidePassword = (password) => {
+  const hidden = [];
+  for (const letter of password) {
+    hidden.push('*')
+  }
+   return hidden.join('');
+}
 
-module.exports = { getUserByEmail, checkForCompany };
+module.exports = { getUserByEmail, checkForCompany, hidePassword };
+
 

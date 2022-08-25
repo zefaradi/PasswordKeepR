@@ -18,16 +18,16 @@
   </head>
   <nav>
     <ul class="main-nav">
-    <li class="nav-list"><a href="/" class="nav-home">PasswordKeepR</a></li>
+    <li class="nav-list"><a href="/user_page" class="nav-home">PasswordKeepR</a></li>
     <li class="nav-list"><a href="/user_page" class="nav-home">User Page</a></li>
         <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Categories
          <span class="caret"></span></a>
          <ul class="dropdown-menu">
-           <li><a href="#">Favourites</a></li>
+           <li><a href="/user_page">Favourites</a></li>
            <li class="divider"></li>
-           <li><a href="#">Entertainment</a></li>
-           <li><a href="#">Social</a></li>
-           <li><a href="#">Work</a></li>
+           <li><a href="/entertainment">Entertainment</a></li>
+           <li><a href="social">Social</a></li>
+           <li><a href="/work">Work</a></li>
          </ul>
          </li>
       <form method="POST" action="/logout" class="push">
@@ -39,34 +39,43 @@
    </header>
 
   <body>
-    <!-- This needs to be replaced with the company from the db that the user clicks on -->
     <h2><%=name%></h2>
     <div class="site-user-info">
     <h3><%=user_name%></h3>
-    <h3><%=user_password%></h3>
+    <h3><%=hash_password%></h3>
     </div>
-    <!-- ------------------------------------------------------------------------ -->
-
 
 <!-- This needs a form POST method and /edit action -->
 <!-- buttons currently have no function to them -->
       <div class="edit-form">
      <form action="/edit/<%=company_id%>/username" method="post">
-
+    <div class="user-btns">
+      <div>
+      <span>Username</span>
+      </div>
+      <div class="hide-user">
      <input type="email" name="email"
      value=<%=user_name%>>
-     <button type="submit" class="btn btn-primary show">Edit</button>
+    </div>
+     <button type="submit" class="btn btn-primary show-user">Edit</button>
+
     </form>
-     </div>
+  </div>
+
      <label></label>
+     <span>password</span>
+     <div class="hide-password">
+      <!-- use type password if we want password to still be hidden -->
      <input type="text" name="password" value=<%=user_password%>>
-     <button type="submit" class="btn btn-primary show">Edit</button>
-     <button type="submit" class="btn btn-primary">Generate Random</button>
-     </div>
+    </div>
+    <div class="password-btns">
+     <button type="submit" class="btn btn-primary show-password">Edit</button>
+     <button type="submit" class="btn btn-primary random-buttom">Generate Random</button>
+    </div>
      <div class="edit-submit">
      <button type="submit" class="btn btn-primary">Submit</button>
      </div>
-
+    </div>
 
 
     <!-- Optional JavaScript -->
