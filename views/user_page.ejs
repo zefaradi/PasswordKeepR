@@ -37,15 +37,17 @@
         <div class="website-content">
       <span class="website-name"><%=favourite.name%></span>
       <span class="hiddenPassword"><span class="copy-text password" style='display:none'><%=favourite.company_password%></span>*******</span>
-      <button class="copy">copy</button>
-      <div class="site-group">
+      <button class="copy"><i class="bi bi-clipboard-check"></i></button>
+      <!-- <div class="site-group"> -->
+        <!-- <button><i class="bi bi-clipboard-check copy"></i></button> -->
       <form method="GET" action="/edit/<%=favourite.id%>">
         <button type="submit"><i class="bi bi-pencil"></i></button>
       </form>
       <form method="POST" action="/edit/<%=favourite.id%>/delete">
         <button type="submit"><i class="bi bi-trash"></i></button>
-      </div>
+      <!-- </div> -->
       </form>
+
     </div>
         <% } %>
       </div>
