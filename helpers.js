@@ -26,7 +26,8 @@ const checkForCompany = async (companyName, categoryList) => {
       const company = await pool
         .query(`INSERT INTO companies (name, category_id)
         VALUES ($1, $2) RETURNING*`, [companyName, categoryList])
-      companyId = company.id
+        console.log("company", company);
+      companyId = company.rows[0].id
     } else {
       companyId = result.rows[0].id
     }
@@ -47,23 +48,6 @@ const hidePassword = (password) => {
    return hidden.join('');
 }
 
-// Random password on edit page
-function randPassword(letters, numbers, special) {
-  var chars = [
-   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", // letters
-   "0123456789", // numbers
-   "~!@-#$" // either
-  ];
-
-  return [letters, numbers, special].map(function(len, i) {
-    return Array(len).fill(chars[i]).map(function(x) {
-      return x[Math.floor(Math.random() * x.length)];
-    }).join('');
-  }).concat().join('').split('').sort(function(){
-    return 0.5-Math.random();
-  }).join('')
-}
-
-module.exports = { getUserByEmail, checkForCompany, hidePassword, randPassword };
+module.exports = { getUserByEmail, checkForCompany, hidePassword };
 
 

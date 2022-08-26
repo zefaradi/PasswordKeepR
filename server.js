@@ -10,7 +10,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const { getUserByEmail, checkForCompany, hidePassword, randPassword } = require('./helpers');
+const { getUserByEmail, checkForCompany, hidePassword } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -276,7 +276,7 @@ app.post("/create", (req, res) => {
     const user_id = req.session.user_id;
     checkForCompany(req.body.website, req.body.categoryList)
       .then((result) => {
-        console.log(result);
+        console.log("line 279", result);
         const company_id = result;
         pool
           .query(`SELECT * FROM company_passwords WHERE company_passwords.user_id = $1 AND company_passwords.company_id = $2`, [user_id, company_id])
