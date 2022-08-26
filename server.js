@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     userID: req.session.user_id,
     users: users[req.session.user_id]
   };
-  console.log("templatevars", templateVars)
+  // console.log("templatevars", templateVars)
   res.render('index', templateVars)
 });
 
@@ -47,7 +47,7 @@ app.get('/edit/:id', (req, res) => {
   const user_id = req.session.user_id
   if (!user_id) {
     res.status(404);
-    res.send("Please login to access the URLs");
+    res.send("Please login to use the application.");
   } else {
     pool
       .query(`SELECT companies.id AS company_id, companies.name, company_passwords.company_username AS user_name, company_passwords.company_password AS user_password
@@ -336,7 +336,7 @@ app.get("/user_page", (req, res) => {
   // check for a cookie
   if (!user_id) {
     res.status(404);
-    res.send("Please login to access the URLs");
+    res.send("Please login to use the application.");
   } else {
     return getCompanyPasswordsForUser(user_id).then((company_passwords) => {
       getUserById(user_id).then((user) => {
@@ -361,7 +361,7 @@ app.get('/create', (req, res) => {
   const user_id = req.session.user_id
   if (!req.session.user_id) {
     res.status(404);
-    res.send("Please login to access the URLs");
+    res.send("Please login to use the application.");
   } else {
     getUserById(user_id).then((user) => {
       const templateVars = {
@@ -380,7 +380,7 @@ app.post("/create", (req, res) => {
   // check for a cookie
   if (!req.session.user_id) {
     res.status(404);
-    res.send("Please login to access the URLs");
+    res.send("Please login to use the application.");
   } else {
     // console.log("line 179:", req.session.user_id);
     const user_id = req.session.user_id;
