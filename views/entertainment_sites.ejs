@@ -15,11 +15,48 @@
 
     <title>PasswordKeepR</title>
   </head>
+  <nav>
+    <ul class="main-nav">
+    <li class="nav-list"><a href="/user_page" class="nav-home">PasswordKeepR</a></li>
+        <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Catagories
+         <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+           <!-- <li><a href="/user_page">Favourites</a></li> -->
+           <li class="divider"></li>
+           <li><a href="/entertainment">Entertainment</a></li>
+           <li><a href="social">Social</a></li>
+           <li><a href="/work">Work</a></li>
+         </ul>
+         </li>
+      <form method="POST" action="/logout" class="push">
+      <button class="nav-logout">Logout</li>
+      </form>
+   </nav>
+   <header>
+     <h1>PasswordKeepR</h1>
+   </header>
 
   <body>
     <%- include('partials/_categories') %>
     <!-- these are place holders and need to be replaced with the actual sites from the db -->
-    <h2>Entertainment</h2>
+    <h2>Entertainment Websites</h2>
+    <!-- <h2>Favourites</h2> -->
+    <div class="website-container">
+      <% for(let favourite of favourites) { %>
+        <div class="website-content">
+      <span class="website-name"><%=favourite.name%></span>
+      <div class="site-group">
+      <form method="GET" action="/create">
+        <input type="hidden" name="website" value="<%=favourite.name%>">
+        <button type="submit" class="btn btn-primary">Favourite</button>
+      </form>
+      <!-- <form method="POST" action="/edit/<%=favourite.id%>/delete">
+        <button type="submit" class="btn btn-primary">Delete</button> -->
+      </div>
+      </form>
+    </div>
+        <% } %>
+      </div>
 
 
     <!-- Optional JavaScript -->

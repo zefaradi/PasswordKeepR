@@ -17,7 +17,22 @@
   <body>
     <%- include('partials/_categories') %>
     <!-- these are place holders and need to be replaced with the actual sites from the db -->
-    <h2>Work</h2>
+    <h2>Work Websites</h2>
+    <div class="website-container">
+      <% for(let favourite of favourites) { %>
+        <div class="website-content">
+      <span class="website-name"><%=favourite.name%></span>
+      <div class="site-group">
+      <form method="GET" action="/create">
+        <button type="submit" class="btn btn-primary">Favourite</button>
+      </form>
+      <!-- <form method="POST" action="/edit/<%=favourite.id%>/delete">
+        <button type="submit" class="btn btn-primary">Delete</button> -->
+      </div>
+      </form>
+    </div>
+        <% } %>
+      </div>
 
 
     <!-- Optional JavaScript -->
