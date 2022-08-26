@@ -32,14 +32,20 @@ const users = {};
 // HOME PAGE
 
 app.get('/', (req, res) => {
-  res.render('index')
+  const templateVars = {
+    userID: req.session.user_id,
+    users: users[req.session.user_id]
+  };
+  console.log("templatevars", templateVars)
+  res.render('index', templateVars)
 });
 
 //--------------------------------------------------------------------------------
 // code to edit favourited company from the user page
 
 app.get('/edit/:id', (req, res) => {
-  if (!req.session.user_id) {
+  const user_id = req.session.user_id
+  if (!user_id) {
     res.status(404);
     res.send("Please login to access the URLs");
   } else {
@@ -49,12 +55,17 @@ app.get('/edit/:id', (req, res) => {
   JOIN company_passwords ON company_id = companies.id
   WHERE companies.id = $1`, [req.params.id])
   .then((result) => {
-    const templateVars = {...result.rows[0]};
-    console.log('templateVars', templateVars)
+    getUserById(user_id).then((user) => {
+      const templateVars = {
+        userID: user_id,
+        user: user,
+        ...result.rows[0]
+      }
+
+    // const templateVars = {...result.rows[0]};
     templateVars.hash_password = hidePassword(result.rows[0].user_password)
-    console.log("line 49:", templateVars);
-    console.log("line 50:", req.params.id);
     res.render('edit_site', templateVars);
+    })
   })
 }
  });
@@ -230,27 +241,45 @@ app.post("/register", (req, res) => {
 //-------------------------------------------------
 // USER PAGE
 
+const getCompanyPasswordsForUser = (user_id) => {
+
+  return pool
+  .query(`SELECT companies.id, companies.name AS name FROM company_passwords
+        JOIN companies
+        ON companies.id = company_id
+        WHERE user_id = $1`, [user_id])
+  .then((result) => result.rows)
+
+}
+
+const getUserById = (user_id) => {
+  return pool
+    .query(`SELECT users.email FROM users WHERE id = $1`, [user_id])
+    .then((result) => result.rows[0])
+}
+
 app.get("/user_page", (req, res) => {
+  const user_id = req.session.user_id
   // check for a cookie
-  if (!req.session.user_id) {
+  if (!user_id) {
     res.status(404);
     res.send("Please login to access the URLs");
   } else {
-    return pool
-      .query(`SELECT companies.id, companies.name AS name FROM company_passwords
-            JOIN companies
-            ON companies.id = company_id
-            WHERE user_id = $1`, [req.session.user_id])
-      .then((result) => {
-        const templateVars = {
-          favourites: result.rows
-        }
-        // console.log("line 209:", templateVars);
-        res.render("user_page", templateVars)
+    return getCompanyPasswordsForUser(user_id).then((company_passwords) => {
+      getUserById(user_id).then((user) => {
+          const templateVars = {
+            favourites: company_passwords,
+            userID: user_id,
+            user: user
+          }
+
+          res.render("user_page", templateVars)
+        })
       })
   }
   //  res.render("user_page")
 });
+
 //-------------------------------------------------
 // ADD A NEW WEBSITE
 
@@ -267,8 +296,9 @@ app.get('/create', (req, res) => {
 // code to add a new website to the user page
 
 app.post("/create", (req, res) => {
+  const user_id = req.session.user_id
   // check for a cookie
-  if (!req.session.user_id) {
+  if (!user_id) {
     res.status(404);
     res.send("Please login to access the URLs");
   } else {

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <%- include('partials/_header') %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
   <!-- Required meta tags -->
@@ -18,27 +19,6 @@
 
   <title>PasswordKeepR</title>
 </head>
-<nav>
-  <ul class="main-nav">
-    <li class="nav-list"><a href="/user_page" class="nav-home">PasswordKeepR</a></li>
-    <li class="nav-list"><a href="/user_page" class="nav-home">User Page</a></li>
-    <li class="nav-list"> <a href="" class="dropdown" data-toggle="dropdown">Categories
-        <span class="caret"></span></a>
-      <ul class="dropdown-menu">
-        <li><a href="/user_page">Favourites</a></li>
-        <li class="divider"></li>
-        <li><a href="/entertainment">Entertainment</a></li>
-        <li><a href="social">Social</a></li>
-        <li><a href="/work">Work</a></li>
-      </ul>
-    </li>
-    <form method="POST" action="/logout" class="push">
-      <button class="nav-logout">Logout</li>
-    </form>
-</nav>
-<header>
-  <h1>PasswordKeepR</h1>
-</header>
 
 <body>
   <h2>

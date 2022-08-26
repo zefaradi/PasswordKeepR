@@ -1,19 +1,22 @@
 <nav>
   <ul class="main-nav">
-  <li class="nav-list"><a href="/" class="nav-home">PasswordKeepR</a></li>
-  <li class="nav-list"><a href="/register" class="nav-register">Register</a></li>
-  <li class="push"><a href="/login" class="nav-login">Login</a></li>
-      <!-- <li class="push"> <a href="" class="dropdown" data-toggle="dropdown">Catagories
-       <span class="caret"></span></a>
-       <ul class="dropdown-menu">
-         <li><a href="#">Favourites</a></li>
-         <li class="divider"></li>
-         <li><a href="#">Entertainment</a></li>
-         <li><a href="#">Social</a></li>
-         <li><a href="#">Work</a></li>
-       </ul>
-       </li> -->
- </nav>
- <header>
-   <h1>PasswordKeepR</h1>
- </header>
+    <li class="nav-list"><a href="/user_page" class="nav-home">PasswordKeepR</a></li>
+    <li class="nav-list"><a href="/user_page" class="nav-home">User Page</a></li>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="float:right"></div>
+    <% if (userID) {%>
+      <form method="POST" action="/logout" class="push">
+        <span>logged in as: <%= user && user.email %></span>
+        <button class="nav-logout" type="submit" value="Submit">Logout</button>
+      </form>
+      <% } else {%>
+        <div class="navbar-nav" style="float:right">
+          <a class="nav-item nav-link" href="/login">login</a>
+        </div>
+        <% } %>
+</nav>
+<header>
+  <h1>PasswordKeepR</h1>
+</header>
+
+<!--
+<button class="nav-logout">Logout</li> -->
