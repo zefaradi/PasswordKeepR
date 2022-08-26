@@ -18,22 +18,14 @@ function randPassword(letters, numbers, special) {
 
 //---------------------------------------------
 
-
-
-// document.getElementById('copy').onclick = function() {
-//   navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
-// }
-
-
 // Client facing scripts here
 $(document).ready(function() {
-
+console.log('button id', $(".random-button"))
 $(".random-button").on("click", function(event) {
   event.preventDefault();
   const randPass = randPassword(5, 2, 1);
   $('.password-field').attr("value", randPass);
   console.log($('.password-field'))
-
 })
 
 //---------------- HIDE USERNAME AND PASSWORD ON EDIT PAGE -----------------------------
@@ -62,4 +54,24 @@ $('.hide-password').show();
   // // $(".show-user").hide();
   // $('.edit-submit').show();
 });
+
+// $('#copy').on('click', function(event) {
+//   navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
+//   .then(function() {
+//     console.log('text has been copied!')
+//   })
+// })
+
+$('#copy').on('click', function(event) {
+  const copyText = document.getElementById("copy-text");
+
+  copyText.select();
+
+  navigator.clipboard.writeText(copyText.innerText);
+
+  alert("Copied the text: " + copyText.value);
+})
+
 });
+
+

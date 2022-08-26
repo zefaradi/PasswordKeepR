@@ -71,6 +71,20 @@ app.get('/edit/:id', (req, res) => {
 });
 // code to delete the favourited company from the user page
 
+app.post('/social/:id/delete', (req, res) => {
+  pool
+    .query(`DELETE FROM company_passwords
+          WHERE company_id = $1`, [req.params.id])
+          console.log('line 78', req.params.id)
+    .then((result) => {
+      // const templateVars = {
+      //   favourites: result.rows
+      // }
+      // console.log("line 66:", templateVars);
+      res.redirect('/social');
+    })
+});
+
 app.post('/edit/:id/delete', (req, res) => {
   pool
     .query(`DELETE FROM company_passwords
@@ -314,15 +328,13 @@ app.post("/register", (req, res) => {
 //-------------------------------------------------
 // USER PAGE
 
-const getCompanyPasswordsForUser = (user_id) => {
-
+const getCompanyPasswordForUser = (user_id) => {
   return pool
     .query(`SELECT companies.id, companies.name AS name FROM company_passwords
         JOIN companies
         ON companies.id = company_id
         WHERE user_id = $1`, [user_id])
     .then((result) => result.rows)
-
 }
 
 const getUserById = (user_id) => {
@@ -338,14 +350,14 @@ app.get("/user_page", (req, res) => {
     res.status(404);
     res.send("Please login to access the URLs");
   } else {
-    return getCompanyPasswordsForUser(user_id).then((company_passwords) => {
+    return getCompanyPasswordForUser(user_id).then((company_passwords) => {
       getUserById(user_id).then((user) => {
         const templateVars = {
           favourites: company_passwords,
           userID: user_id,
           user: user
         }
-
+        console.log('line 348', user)
         res.render("user_page", templateVars)
       })
     })
