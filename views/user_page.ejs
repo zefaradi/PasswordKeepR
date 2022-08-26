@@ -35,8 +35,9 @@
     <div class="website-container">
       <% for(let favourite of favourites) { %>
         <div class="website-content">
-      <span class="website-name" id="copy-text"><%=favourite.name%></span>
-      <!-- <button id="copy">copy</button> -->
+      <span class="website-name"><%=favourite.name%></span>
+      <span class="hiddenPassword"><span class="copy-text password" style='display:none'><%=favourite.company_password%></span>*******</span>
+      <button class="copy">copy</button>
       <div class="site-group">
       <form method="GET" action="/edit/<%=favourite.id%>">
         <button type="submit"><i class="bi bi-pencil"></i></button>

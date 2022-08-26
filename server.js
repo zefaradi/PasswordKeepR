@@ -330,7 +330,7 @@ app.post("/register", (req, res) => {
 
 const getCompanyPasswordForUser = (user_id) => {
   return pool
-    .query(`SELECT companies.id, companies.name AS name FROM company_passwords
+    .query(`SELECT companies.id, company_password, companies.name AS name FROM company_passwords
         JOIN companies
         ON companies.id = company_id
         WHERE user_id = $1`, [user_id])
@@ -357,7 +357,7 @@ app.get("/user_page", (req, res) => {
           userID: user_id,
           user: user
         }
-        console.log('line 348', user)
+        console.log('line 348', templateVars)
         res.render("user_page", templateVars)
       })
     })

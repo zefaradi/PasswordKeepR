@@ -55,23 +55,13 @@ $('.hide-password').show();
   // $('.edit-submit').show();
 });
 
-// $('#copy').on('click', function(event) {
-//   navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
-//   .then(function() {
-//     console.log('text has been copied!')
-//   })
-// })
-
-$('#copy').on('click', function(event) {
-  const copyText = document.getElementById("copy-text");
-
-  copyText.select();
-
-  navigator.clipboard.writeText(copyText.innerText);
-
-  alert("Copied the text: " + copyText.value);
+$('.copy').on('click', function(event) {
+  console.log($(this).siblings('.copy-text').text())
+  navigator.clipboard.writeText($(this).siblings('.hiddenPassword').children('.copy-text').text())
+  .then(function() {
+    alert('Password has been copied to clipboard!')
+  })
 })
-
 });
 
 
