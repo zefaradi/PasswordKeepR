@@ -143,7 +143,7 @@ app.get('/entertainment', (req, res) => {
         const templateVars = {
           favourites: result.rows
         }
-        // console.log("line 209:", templateVars);
+        // console.log("line 146:", templateVars);
         res.render('entertainment_sites', templateVars)
       })
   }
