@@ -305,7 +305,8 @@ app.get('/create', (req, res) => {
     res.status(404);
     res.send("Please login to access the URLs");
   } else {
-  res.render('new_site')
+    const templateVars = {website: req.query.website ? req.query.website: null}
+  res.render('new_site', templateVars);
   }
 });
 

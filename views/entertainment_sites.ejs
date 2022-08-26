@@ -45,6 +45,7 @@
       <span class="website-name"><%=favourite.name%></span>
       <div class="site-group">
       <form method="GET" action="/create">
+        <input type="hidden" name="website" value="<%=favourite.name%>">
         <button type="submit" class="btn btn-primary">Favourite</button>
       </form>
       <!-- <form method="POST" action="/edit/<%=favourite.id%>/delete">
