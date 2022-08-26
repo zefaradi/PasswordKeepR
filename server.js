@@ -112,15 +112,60 @@ app.post('/edit/:id/username', (req, res) => {
 // GET ROUTES FOR CATEGORIES---------- //
 
 app.get('/work', (req, res) => {
-  res.render('work_sites')
+
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access this page");
+  } else {
+    return pool
+      .query(`SELECT * FROM companies
+            WHERE category_id = $1 LIMIT 10`, [2])
+      .then((result) => {
+        const templateVars = {
+          favourites: result.rows
+        }
+        // console.log("line 209:", templateVars);
+        res.render('work_sites', templateVars)
+      })
+  }
 })
 
 app.get('/entertainment', (req, res) => {
-  res.render('entertainment_sites')
+
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access this page");
+  } else {
+    return pool
+      .query(`SELECT * FROM companies
+            WHERE category_id = $1 LIMIT 10`, [1])
+      .then((result) => {
+        const templateVars = {
+          favourites: result.rows
+        }
+        // console.log("line 209:", templateVars);
+        res.render('entertainment_sites', templateVars)
+      })
+  }
 })
 
 app.get('/social', (req, res) => {
-  res.render('social_sites')
+
+  if (!req.session.user_id) {
+    res.status(404);
+    res.send("Please login to access this page");
+  } else {
+    return pool
+      .query(`SELECT * FROM companies
+            WHERE category_id = $1 LIMIT 10`, [3])
+      .then((result) => {
+        const templateVars = {
+          favourites: result.rows
+        }
+        // console.log("line 209:", templateVars);
+        res.render('social_sites', templateVars)
+      })
+  }
 })
 
 //----------------------------------------------------------------
