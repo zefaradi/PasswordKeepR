@@ -37,30 +37,41 @@
       </div>
   </div>
 
-  <div class="website-container">
-    <% for(let favourite of favourites) { %>
-      <div class="website-content">
-        <span class="website-name">
-          <%=favourite.name%>
-        </span>
-        <span class="hiddenPassword"><span class="copy-text password" style='display:none'>
-            <%=favourite.company_password%>
-          </span>*******</span>
-        <div class="user-buttons">
-          <button class="copy"><i class="bi bi-clipboard-check"></i></button>
-          <!-- <div class="site-group"> -->
-          <!-- <button><i class="bi bi-clipboard-check copy"></i></button> -->
-          <form method="GET" action="/edit/<%=favourite.id%>">
-            <button type="submit"><i class="bi bi-pencil"></i></button>
-          </form>
-          <form method="POST" action="/edit/<%=favourite.id%>/delete">
-            <button type="submit"><i class="bi bi-trash"></i></button>
-            <!-- </div> -->
-          </form>
-        </div>
-      </div>
-      <% } %>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Website</th>
+        <th scope="col">Password</th>
+        <th scope="col">Copy password</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let favourite of favourites) { %>
+        <tr>
+          <td>
+            <%=favourite.name%>
+          </td>
+          <td><span class="hiddenPassword"><span class="copy-text password" style='display:none'>
+                <%=favourite.company_password%>
+              </span>*******</span></td>
+          <td>
+            <button class="copy"><i class="bi bi-clipboard-check"></i></button>
+          </td>
+          <td>
+            <form method="GET" action="/edit/<%=favourite.id%>">
+              <button type="submit"><i class="bi bi-pencil"></i></button>
+            </form>
+          </td>
+          <td>
+            <form method="POST" action="/edit/<%=favourite.id%>/delete">
+              <button type="submit"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
 
 
 

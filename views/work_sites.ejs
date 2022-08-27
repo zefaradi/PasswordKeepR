@@ -22,23 +22,30 @@
     </header>
 
   <body>
+
     <%- include('partials/_categories') %>
-    <!-- these are place holders and need to be replaced with the actual sites from the db -->
-    <div class="website-container">
-      <% for(let favourite of favourites) { %>
-        <div class="website-content">
-      <span class="website-name"><%=favourite.name%></span>
-      <div class="site-group">
-      <form method="GET" action="/create">
-        <button type="submit"><i class="bi bi-star-fill"></button>
-      </form>
-      <!-- <form method="POST" action="/edit/<%=favourite.id%>/delete">
-        <button type="submit" class="btn btn-primary">Delete</button> -->
-      </div>
-      </form>
-    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Website</th>
+          <th scope="col">Favourite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let favourite of favourites) { %>
+          <tr>
+            <td><%=favourite.name%></td>
+            <td>
+              <form method="GET" action="/create">
+                <input type="hidden" name="website" value="<%=favourite.name%>">
+                <button type="submit"><i class="bi bi-star-fill"></i></button>
+              </form>
+            </td>
+          </tr>
         <% } %>
-      </div>
+      </tbody>
+    </table>
 
 
     <!-- Optional JavaScript -->

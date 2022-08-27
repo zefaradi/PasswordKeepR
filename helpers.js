@@ -48,6 +48,11 @@ const hidePassword = (password) => {
    return hidden.join('');
 }
 
-module.exports = { getUserByEmail, checkForCompany, hidePassword };
+function containsSpecialChars(str) {
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  return specialChars.test(str);
+}
+
+module.exports = { getUserByEmail, checkForCompany, hidePassword, containsSpecialChars };
 
 

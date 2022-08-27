@@ -10,7 +10,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const bcrypt = require('bcryptjs');
-const { getUserByEmail, checkForCompany, hidePassword } = require('./helpers');
+const { getUserByEmail, checkForCompany, hidePassword, containsSpecialChars } = require('./helpers');
 
 const app = express();
 const PORT = 3000;
@@ -289,12 +289,16 @@ app.post("/register", (req, res) => {
     .then((result) => {
       const user = result[0];
 
+      //
+
       if (user) {
         res.status(403);
         return res.send("An account with this email already exists");
       } else if (!email || !password) {
         res.status(403);
         return res.send("Either the email or password are empty");
+      } else if (req.body.password.length < 8 || !containsSpecialChars(req.body.password)) {
+          return res.send('please enter a password of 8 or more characters and include a special character')
       } else {
         // INSERT STATEMENT INTO THE USERS TABLE
         return pool

@@ -62,7 +62,7 @@ $('.copy').on('click', function(event) {
   .then(function() {
     alert('Password has been copied to clipboard!')
   })
-})
+});
 
 // FADE IN ---------------------------------------------
 
