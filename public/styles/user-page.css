@@ -1,4 +1,4 @@
-h2 {
+.favourties {
   padding-top: 4rem;
   text-align: center;
  }
@@ -43,7 +43,7 @@ justify-content: center;
 }
 
 .add-website {
-margin-top: 5rem;
+  padding-left: 2rem;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -54,4 +54,20 @@ margin-top: 2rem;
 width: 200px;
 height: 50px;
 font-size: 24px;
+}
+
+.top-row {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.user-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hiddenPassword {
+  text-align: center;
 }

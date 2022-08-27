@@ -23,10 +23,10 @@ text-decoration: underline;
   text-align: center;
 }
 
-/* .password-btns {
+.password-btns {
   display: flex;
   flex-direction: row;
-} */
+}
 
 .random-buttom, .show-user, .show-password, .edit-submit {
   margin-top: 1rem;
