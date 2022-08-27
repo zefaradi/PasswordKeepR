@@ -1,0 +1,16 @@
+.website-container {
+  display:inline-block;
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  max-width: 200px;
+}
+
+/* .website-content {
+  display: flex;
+  flex: 1 0 5%;
+  flex-direction: column;
+  margin-left: 5rem;
+  grid-auto-rows: 1px;
+} */
+

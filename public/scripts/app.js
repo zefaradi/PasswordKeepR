@@ -55,13 +55,17 @@ $('.hide-password').show();
   // $('.edit-submit').show();
 });
 
+// COPY PASSWORD TO CLIPBOARD ---------------------------------------------
+
 $('.copy').on('click', function(event) {
-  console.log($(this).siblings('.copy-text').text())
   navigator.clipboard.writeText($(this).siblings('.hiddenPassword').children('.copy-text').text())
   .then(function() {
     alert('Password has been copied to clipboard!')
   })
 })
+
+// FADE IN ---------------------------------------------
+
 });
 
 

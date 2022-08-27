@@ -1,7 +1,7 @@
 <nav>
   <ul class="main-nav">
-    <li class="nav-list"><a href="/user_page" class="nav-home">My Pages</a></li>
-    <li class="nav-list"><a href="/create" class="nav-home">Add Website</a></li>
+    <li><a href="/user_page" class="nav-home">My Pages</a></li>
+    <li><a href="/create" class="nav-home">Add Website</a></li>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="float:right"></div>
     <% if (userID) {%>
       <form method="POST" action="/logout" class="push">
@@ -9,14 +9,11 @@
         <button class="nav-logout" type="submit" value="Submit">Logout</button>
       </form>
       <% } else {%>
-        <div class="navbar-nav" style="float:right">
-          <a class="nav-item nav-link" href="/login">login</a>
+        <div class="push"></div>
+      <li><a href="/login" class="nav-home">login</a></li>
+      <li><a href="/register" class="nav-home">Register</a></li>
+        </div>
         </div>
         <% } %>
+      </ul>
 </nav>
-<header>
-  <h1>PasswordKeepR</h1>
-</header>
-
-<!--
-<button class="nav-logout">Logout</li> -->

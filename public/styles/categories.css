@@ -1,0 +1,19 @@
+.dropdown-item {
+  font-size: 30px;
+}
+
+.btn {
+  color: black;
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 40px;
+  cursor: pointer;
+  display: inline-block;
+} */
+
+ .btn:hover {
+  background: #eee;
+  border: none;
+  color: black;
+}
