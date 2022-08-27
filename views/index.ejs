@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <%- include('partials/_header') %>
+
+<head>
+  <%- include('partials/_header') %>
     <title>PasswordKeepR</title>
 
     <!-- Required meta tags ---------------------------------------------------->
@@ -9,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS --------------------------------------------------------->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- CSS STYLES ------------------------------------------------------------>
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
@@ -18,33 +20,39 @@
     <!-- JQUERY ---------------------------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="../scripts/test.js"></script>
-
     <script src="../express_server.js"></script>
+</head>
 
-  </head>
+<header>
+  <h1>PasswordKeepR</h1>
+</header>
 
-  <header>
-    <h1>PasswordKeepR</h1>
-  </header>
-
-  <body>
-    <div class="about-section">
-   <h2>About</h2>
-   <p>This app will let an authorized user acess all the passwords of the organization. The app will also let a user generate a new password for a specific account (just like LastPass). Users will be able to generate a password based on the options the form will provide.</p>
+<body>
+  <div class="about-section">
+    <h2>About</h2>
+    <p>This app will let an authorized user acess all the passwords of the organization. The app will also let a user
+      generate a new password for a specific account (just like LastPass). Users will be able to generate a password
+      based on the options the form will provide.</p>
   </div>
   <div class="homepage-button">
-    <a href="/login" ><button type="submit" class="btn btn-primary btn-1">Login</button></a>
+    <a href="/login"><button type="submit" class="btn btn-primary btn-1">Login</button></a>
   </div>
   <div class="homepage-button">
     <a href="/register"><button type="submit" class="btn btn-primary btn-1">Register</button></a>
-  <footer></footer>
-  <body>
+    <footer></footer>
 
+    <body>
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    </body>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
 </html>

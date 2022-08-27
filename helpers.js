@@ -48,11 +48,28 @@ const hidePassword = (password) => {
    return hidden.join('');
 }
 
+// USER PASSWORD MUST BE 8 CHARACTERS AND USE SPECIAL CHARACTER
 function containsSpecialChars(str) {
   const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
   return specialChars.test(str);
 }
 
-module.exports = { getUserByEmail, checkForCompany, hidePassword, containsSpecialChars };
+// Get Company Password For User
+const getCompanyPasswordForUser = (user_id) => {
+  return pool
+    .query(`SELECT companies.id, company_password, companies.name AS name FROM company_passwords
+        JOIN companies
+        ON companies.id = company_id
+        WHERE user_id = $1`, [user_id])
+    .then((result) => result.rows)
+}
+
+const getUserById = (user_id) => {
+  return pool
+    .query(`SELECT users.email FROM users WHERE id = $1`, [user_id])
+    .then((result) => result.rows[0])
+}
+
+module.exports = { getUserByEmail, checkForCompany, hidePassword, containsSpecialChars, getCompanyPasswordForUser, getUserById };
 
 

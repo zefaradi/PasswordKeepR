@@ -21,7 +21,6 @@
 
     <title>PasswordKeepR</title>
 </head>
-
 <header>
   <h1>Favourites</h1>
 </header>
@@ -33,10 +32,8 @@
         <form method="GET" action="/create">
           <button type="submit" class="btn">Add New Website</button>
         </form>
-
       </div>
   </div>
-
   <table class="table">
     <thead>
       <tr>
@@ -51,9 +48,11 @@
       <% for(let favourite of favourites) { %>
         <tr>
           <td>
-            <%=favourite.name%>
+            <a href="<%=favourite.name%>" class="website-link" target="_blank">
+              <%=favourite.name%>
+            </a>
           </td>
-          <td><span class="hiddenPassword"><span class="copy-text password" style='display:none'>
+          <td class="password-parent"><span class="hiddenPassword"><span class="copy-text"  style='display:none'>
                 <%=favourite.company_password%>
               </span>*******</span></td>
           <td>
@@ -67,14 +66,12 @@
           <td>
             <form method="POST" action="/edit/<%=favourite.id%>/delete">
               <button type="submit"><i class="bi bi-trash"></i></button>
+            </form>
           </td>
         </tr>
         <% } %>
     </tbody>
   </table>
-
-
-
   <!-- Optional JavaScript -->
   <script type="text/javascript" src="/scripts/app.js"></script>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

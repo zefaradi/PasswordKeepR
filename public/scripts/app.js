@@ -33,8 +33,7 @@ $(".random-button").on("click", function(event) {
 $('.hide-user').hide();
 $('.hide-password').hide();
 let hiddenStatus = true;
-// $('.hide-form').hide();
-// $('.edit-submit').hide();
+
 
 
 // SHOW USER NAME AND PASSWORD ON EDIT PAGE ---------------------------------------------
@@ -48,20 +47,17 @@ $('.hide-password').show();
   $('.hide-user').hide();
   $('.hide-password').hide();
   hiddenStatus = true;
-  // // event.preventDefault();
-  // $('.hide-user').show();
-  // $(".hide-form").show();
-  // // $(".show-user").hide();
-  // $('.edit-submit').show();
 });
 
 // COPY PASSWORD TO CLIPBOARD ---------------------------------------------
 
 $('.copy').on('click', function(event) {
-  navigator.clipboard.writeText($(this).siblings('.hiddenPassword').children('.copy-text').text())
-  .then(function() {
+console.log($(this).parent().siblings('.password-parent').children('.hiddenPassword').children('.copy-text'))
+    navigator.clipboard.writeText($(this).parent().siblings('.password-parent').children('.hiddenPassword').children('.copy-text').text())
+    .then(function() {
     alert('Password has been copied to clipboard!')
   })
+
 });
 
 // FADE IN ---------------------------------------------
