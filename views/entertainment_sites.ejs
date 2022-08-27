@@ -33,15 +33,33 @@
       <form method="GET" action="/create">
         <input type="hidden" name="website" value="<%=favourite.name%>">
         <button type="submit"><i class="bi bi-pencil"></i></button>
-
       </form>
 
-      <!-- <form method="POST" action="/edit/<%=favourite.id%>/delete">
-        <button type="submit" class="btn btn-primary">Delete</button> -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Website</th>
+            <th scope="col">favourite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let favourite of favourites) { %>
+            <tr>
+              <td><%=favourite.name%></td>
+              <td>
+                <form method="GET" action="/create">
+                  <input type="hidden" name="website" value="<%=favourite.name%>">
+                  <button type="submit"><i class="bi bi-pencil"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
       </div>
       </form>
     </div>
-        <% } %>
+        <!-- <% } %> -->
       </div>
 
 
