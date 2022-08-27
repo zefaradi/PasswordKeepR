@@ -3,10 +3,14 @@
   list-style-type: none;
   padding-left: 0;
   padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #dbecf4;
+  margin-bottom: 0;
   }
 
   .nav-home {
    padding: 10px;
+   color: rgba(0, 0, 0, 0.559);
   }
 
   .nav-login {
@@ -23,13 +27,30 @@
   }
 
   header {
-   border-top: solid black;
-   border-bottom: solid black;
+   border-top: solid #194569;
+  border-bottom: solid #194569;
    height: 200px;
    width: 100vw;
-   background-color: #7A8D9B;
+   background-color: #91aec4;
    display: flex;
    align-items: center;
    justify-content: center;
    flex-flow: column wrap;
   }
+
+  .nav-logout {
+    border: none;
+    background-color: #dbecf4;
+    color: black;
+  }
+
+  .nav-home:hover {
+    color: black;
+    text-decoration: none;
+  }
+
+  .nav-logout:hover {
+    color: green;
+  }
+
+

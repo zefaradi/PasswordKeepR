@@ -17,8 +17,11 @@
 
  .btn {
   margin: 1rem;
+  color: black;
+  background-color: #5f84a2;
+  border: none;
  }
 
- .category-list {
-  align-items: center;
+ .btn:hover {
+  background-color: #194569;
  }

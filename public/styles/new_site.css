@@ -9,11 +9,6 @@ h2 {
   text-align: center;
  }
 
- .btn {
-  margin-top: 1rem;
-  margin-right: 2rem;
- }
-
  .register-form {
   padding-bottom: 1rem;
   display: flex;
@@ -29,4 +24,15 @@ h2 {
  .website-selection {
   display: flex;
   justify-content: center;
+ }
+
+ .btn {
+  margin: 1rem;
+  color: black;
+  background-color: #5f84a2;
+  border: none;
+ }
+
+ .btn:hover {
+  background-color: #194569;
  }

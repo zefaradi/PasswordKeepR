@@ -6,11 +6,7 @@
   max-width: 200px;
 }
 
-/* .website-content {
-  display: flex;
-  flex: 1 0 5%;
-  flex-direction: column;
-  margin-left: 5rem;
-  grid-auto-rows: 1px;
-} */
-
+.category-title {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}

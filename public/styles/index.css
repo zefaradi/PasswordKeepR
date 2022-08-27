@@ -28,3 +28,14 @@
  footer {
   margin-top: 10rem;
  }
+
+ .btn {
+  margin: 1rem;
+  color: black;
+  background-color: #5f84a2;
+  border: none;
+ }
+
+ .btn:hover {
+  background-color: #194569;
+ }
