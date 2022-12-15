@@ -7,7 +7,7 @@ PasswordKeepR is midtern project I developed as part of of the Lighthouse Lab's 
 PasswordKeepR is an application that allows users to manage their passwords. Users can store, copy, generate complex password all in one place.
 
 ## Getting Started
-____
+
 1. Create a new repository using this repository as a template.
 2. Clone your repository onto your local device.
 3. Install dependencies using the npm install command.
@@ -19,8 +19,8 @@ ____
 - Users can access all of their passwords linked to different organization.
 - Robust and customizable password generator.
 - Ability for users to edit existing login emails and passwords.
-____________
 
+## Screenshots
 Website's Front Page:
 <br/>
 ![image](https://user-images.githubusercontent.com/49661310/207967829-8d5caf01-d280-4fbc-acb7-59511530de0f.png)
@@ -36,7 +36,7 @@ Add New Website Page:
 ![image](https://user-images.githubusercontent.com/49661310/207970256-7ce79be9-b0a2-46fd-9f11-e1db3a1c58da.png)
 
 ## Project Setup
-____
+
 - Use npm install to install any missing dependencies
 
 ### Required Dependencies
