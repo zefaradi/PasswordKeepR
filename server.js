@@ -75,7 +75,7 @@ app.post('/social/:id/delete', (req, res) => {
   pool
     .query(`DELETE FROM company_passwords
           WHERE company_id = $1`, [req.params.id])
-          console.log('line 78', req.params.id)
+          // console.log('line 78', req.params.id)
     .then((result) => {
       // const templateVars = {
       //   favourites: result.rows
@@ -102,7 +102,7 @@ app.post('/edit/:id/delete', (req, res) => {
 // code to edit the user name for a favourited company
 
 app.post('/edit/:id/username', (req, res) => {
-  console.log("line 58:", req.body);
+  // console.log("line 58:", req.body);
   pool
     .query(`UPDATE company_passwords SET company_username = $1
   WHERE company_id = $2 RETURNING*`, [req.body.email, req.params.id])
@@ -110,7 +110,7 @@ app.post('/edit/:id/username', (req, res) => {
       if (!req.body.email) {
         return res.status(403).send('username cannot be blank.');
       } else {
-        console.log("line 63:", result.rows);
+        // console.log("line 63:", result.rows);
         res.redirect(`/edit/${req.params.id}`);
       }
     })
@@ -120,7 +120,7 @@ app.post('/edit/:id/username', (req, res) => {
 // code to edit the password for a favourited company
 
 app.post('/edit/:id/password', (req, res) => {
-  console.log("line 58:", req.body);
+  // console.log("line 58:", req.body);
   pool
     .query(`UPDATE company_passwords SET company_password = $1
     WHERE company_id = $2 RETURNING*`, [req.body.password, req.params.id])
@@ -128,7 +128,7 @@ app.post('/edit/:id/password', (req, res) => {
       if (!req.body.password) {
         return res.status(403).send("Password cannot be blank.");
       } else {
-        console.log("line 63:", result.rows);
+        // console.log("line 63:", result.rows);
         res.redirect(`/edit/${req.params.id}`);
       }
     })
@@ -313,7 +313,7 @@ app.post("/register", (req, res) => {
                   ($1, 'example@example.com', $4, 'Password')
                   RETURNING *`, [result.rows[0].id, 1, 2, 3])
         .then((favourite) => {
-          console.log("line 182:", favourite.rows)
+          // console.log("line 182:", favourite.rows)
           req.session.user_id = result.rows[0].id
           pool.query(`INSERT INTO favourites (companyPassword_id) VALUES ($1), ($2), ($3)`, [favourite.rows[0].id, favourite.rows[1].id, favourite.rows[2].id])
           // pool.
@@ -359,7 +359,7 @@ app.get("/user_page", (req, res) => {
           userID: user_id,
           user: user
         }
-        console.log('line 348', templateVars)
+        // console.log('line 348', templateVars)
         res.render("user_page", templateVars)
       })
     })
@@ -400,7 +400,7 @@ app.post("/create", (req, res) => {
     const user_id = req.session.user_id;
     checkForCompany(req.body.website, req.body.categoryList)
       .then((result) => {
-        console.log("line 279", result);
+        // console.log("line 279", result);
         const company_id = result;
         pool
           .query(`SELECT * FROM company_passwords WHERE company_passwords.user_id = $1 AND company_passwords.company_id = $2`, [user_id, company_id])

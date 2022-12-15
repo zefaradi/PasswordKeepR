@@ -26,7 +26,7 @@ const checkForCompany = async (companyName, categoryList) => {
       const company = await pool
         .query(`INSERT INTO companies (name, category_id)
         VALUES ($1, $2) RETURNING*`, [companyName, categoryList])
-        console.log("company", company);
+        // console.log("company", company);
       companyId = company.rows[0].id
     } else {
       companyId = result.rows[0].id
