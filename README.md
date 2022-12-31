@@ -21,7 +21,11 @@ PasswordKeepR is an application that allows users to manage their passwords. Use
 - Ability for users to edit existing login emails and passwords.
 
 ## Screenshots
-Website's Front Page:
+Landing Page:
+<br/>
+![image](https://user-images.githubusercontent.com/49661310/210119759-4a45e5bf-1dd9-4b0b-906f-9e9ddb56109d.png)
+
+Login Page:
 <br/>
 ![image](https://user-images.githubusercontent.com/49661310/207967829-8d5caf01-d280-4fbc-acb7-59511530de0f.png)
 
