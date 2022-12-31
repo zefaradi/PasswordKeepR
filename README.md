@@ -1,6 +1,6 @@
 PasswordKeepR
 =========
-PasswordKeepR is midtern project I developed as part of of the Lighthouse Lab's Web Developer Program
+PasswordKeepR is a midtern project I developed as part of of the Lighthouse Lab's Web Developer Program
 
 ## Description
 
