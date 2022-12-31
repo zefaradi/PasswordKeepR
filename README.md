@@ -25,10 +25,6 @@ Landing Page:
 <br/>
 ![image](https://user-images.githubusercontent.com/49661310/210119759-4a45e5bf-1dd9-4b0b-906f-9e9ddb56109d.png)
 
-Login Page:
-<br/>
-![image](https://user-images.githubusercontent.com/49661310/207967829-8d5caf01-d280-4fbc-acb7-59511530de0f.png)
-
 User's Favourited Sites:
 <br/>
 ![image](https://user-images.githubusercontent.com/49661310/207969093-4f9b81fa-d97b-45c8-8a07-1a18fa286e49.png)
